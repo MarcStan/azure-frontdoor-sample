@@ -1,0 +1,147 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appServicePlanName": {
+            "type": "string",
+            "metadata": {
+                "comment": "must exist (e.g. outside the resourcegroup)"
+            }
+        },
+        "webApp1": {
+            "type": "string"
+        },
+        "webApp1Location": {
+            "type": "string"
+        },
+        "webApp2": {
+            "type": "string"
+        },
+        "webApp2Location": {
+            "type": "string"
+        },
+        "appServicePlanResourceGroupName": {
+            "type": "string",
+            "metadata": {
+                "comment": "must exist (e.g. outside the resourcegroup)"
+            }
+        }
+    },
+    "variables": {
+        "appServiceResourceId": "[resourceId(parameters('appServicePlanResourceGroupName'), 'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "kind": "app",
+            "name": "[parameters('webApp1')]",
+            "apiVersion": "2016-08-01",
+            "location": "[parameters('webApp1Location')]",
+            "dependsOn": [
+            ],
+            "properties": {
+                "serverFarmId": "[variables('appServiceResourceId')]",
+                "clientAffinityEnabled": false,
+                "httpsOnly": true,
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components/', variables('appInsightsName')), '2015-05-01').InstrumentationKey]"
+                        },
+                        {
+                            "name": "ConnectionStrings_StorageConnectionString",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountId'),'2015-05-01-preview').key1)]"
+                        },
+                        {
+                            "name": "WEBSITE_RUN_FROM_PACKAGE",
+                            "value": "1"
+                        }
+                    ]
+                }
+            },
+            "resources": [
+                {
+                    "type": "config",
+                    "apiVersion": "2016-08-01",
+                    "name": "web",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/sites', variables('webAppName'))]"
+                    ],
+                    "properties": {
+                        "netFrameworkVersion": "v4.0",
+                        "phpVersion": "",
+                        "pythonVersion": "",
+                        "nodeVersion": "",
+                        "linuxFxVersion": "",
+                        "webSocketsEnabled": true,
+                        "alwaysOn": true,
+                        "javaVersion": null,
+                        "javaContainer": null,
+                        "javaContainerVersion": null,
+                        "use32BitWorkerProcess": true,
+                        "loadBalancing": "LeastRequests",
+                        "minTlsVersion": "1.2",
+                        "ftpsState": "Disabled"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "kind": "app",
+            "name": "[parameters('webApp2')]",
+            "apiVersion": "2016-08-01",
+            "location": "[parameters('webApp2Location')]",
+            "dependsOn": [
+            ],
+            "properties": {
+                "serverFarmId": "[variables('appServiceResourceId')]",
+                "clientAffinityEnabled": false,
+                "httpsOnly": true,
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components/', variables('appInsightsName')), '2015-05-01').InstrumentationKey]"
+                        },
+                        {
+                            "name": "ConnectionStrings_StorageConnectionString",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountId'),'2015-05-01-preview').key1)]"
+                        },
+                        {
+                            "name": "WEBSITE_RUN_FROM_PACKAGE",
+                            "value": "1"
+                        }
+                    ]
+                }
+            },
+            "resources": [
+                {
+                    "type": "config",
+                    "apiVersion": "2016-08-01",
+                    "name": "web",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/sites', variables('webAppName'))]"
+                    ],
+                    "properties": {
+                        "netFrameworkVersion": "v4.0",
+                        "phpVersion": "",
+                        "pythonVersion": "",
+                        "nodeVersion": "",
+                        "linuxFxVersion": "",
+                        "webSocketsEnabled": true,
+                        "alwaysOn": true,
+                        "javaVersion": null,
+                        "javaContainer": null,
+                        "javaContainerVersion": null,
+                        "use32BitWorkerProcess": true,
+                        "loadBalancing": "LeastRequests",
+                        "minTlsVersion": "1.2",
+                        "ftpsState": "Disabled"
+                    }
+                }
+            ]
+        }
+    ]
+}
