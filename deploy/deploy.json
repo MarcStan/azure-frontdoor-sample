@@ -2,11 +2,11 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "appServicePlanName": {
-            "type": "string",
-            "metadata": {
-                "comment": "must exist (e.g. outside the resourcegroup)"
-            }
+        "appServicePlan1Name": {
+            "type": "string"
+        },
+        "appServicePlan2Name": {
+            "type": "string"
         },
         "webApp1": {
             "type": "string"
@@ -28,7 +28,8 @@
         }
     },
     "variables": {
-        "appServiceResourceId": "[resourceId(parameters('appServicePlanResourceGroupName'), 'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+        "appService1ResourceId": "[resourceId(parameters('appServicePlanResourceGroupName'), 'Microsoft.Web/serverfarms', parameters('appServicePlan1Name'))]",
+        "appService2ResourceId": "[resourceId(parameters('appServicePlanResourceGroupName'), 'Microsoft.Web/serverfarms', parameters('appServicePlan2Name'))]"
     },
     "resources": [
         {
@@ -40,7 +41,7 @@
             "dependsOn": [
             ],
             "properties": {
-                "serverFarmId": "[variables('appServiceResourceId')]",
+                "serverFarmId": "[variables('appService1ResourceId')]",
                 "clientAffinityEnabled": false,
                 "httpsOnly": true,
                 "siteConfig": {
@@ -88,7 +89,7 @@
             "dependsOn": [
             ],
             "properties": {
-                "serverFarmId": "[variables('appServiceResourceId')]",
+                "serverFarmId": "[variables('appService2ResourceId')]",
                 "clientAffinityEnabled": false,
                 "httpsOnly": true,
                 "siteConfig": {

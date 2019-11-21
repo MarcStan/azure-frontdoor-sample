@@ -53,11 +53,12 @@ Write-Output "Deploying resourcegroup $ResourceGroupName"
 
 $templateFile = Join-Path $PSScriptRoot "deploy.json"
 $parameters = @{
-    "appServicePlanName" = $AppServicePlanName
     "webApp1" = $WebApp1
     "webApp1Location" = $WebApp1Location
+    "appServicePlan1Name" = $AppService1
     "webApp2" = $WebApp2
     "webApp2Location" = $WebApp2Location
+    "appServicePlan2Name" = $AppService2
     "appServicePlanResourceGroupName" = $AppServicePlanResourceGroupName
 }
 
