@@ -40,11 +40,11 @@ if ($ResourceGroup -eq $null) {
     New-AzResourceGroup -Name $ResourceGroupName -Location $ResourceGroupLocation -Force -ErrorAction Stop
 }
 
-$ase1 = Get-AzAppServicePlan -ResourceGroupName $AppService1 -Name $AppServicePlanName
+$ase1 = Get-AzAppServicePlan -ResourceGroupName $AppServicePlanResourceGroupName -Name $AppService1
 if ($ase1 -eq $null) {
     Write-Error "App Service Plan $AppService1 not found in resourcegroup $AppServicePlanResourceGroupName"
 }
-$ase2 = Get-AzAppServicePlan -ResourceGroupName $AppService2 -Name $AppServicePlanName
+$ase2 = Get-AzAppServicePlan -ResourceGroupName $AppServicePlanResourceGroupName -Name $AppService2
 if ($ase2 -eq $null) {
     Write-Error "App Service Plan $AppService2 not found in resourcegroup $AppServicePlanResourceGroupName"
 }
