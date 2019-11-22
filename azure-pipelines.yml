@@ -90,7 +90,7 @@ stages:
     - task: AzurePowerShell@4
       displayName: 'Deploy infrastructure'
       inputs:
-        azureSubscription: 'Azure Corp'
+        azureSubscription: 'Opensource Deployments'
         ScriptPath: '$(System.ArtifactsDirectory)/deploy/Deploy.ps1'
         ScriptArguments: '-ResourceGroupName $(ResourceGroupName) -AppServicePlanResourceGroupName $(AppServicePlanResourceGroupName) -WebApp1 $(WebApp1) -WebApp2 $(WebApp2)'
         azurePowerShellVersion: LatestVersion
@@ -116,10 +116,10 @@ stages:
         archiveFile: '$(System.DefaultWorkingDirectory)/package.zip'
 
     - task: AzureRmWebAppDeployment@4
-      displayName: 'Publish to webapp'
+      displayName: 'Publish to webapp 1'
       inputs:
         ConnectionType: 'AzureRM'
-        azureSubscription: 'Azure Corp'
+        azureSubscription: 'Opensource Deployments'
         appType: 'webApp'
         WebAppName: '$(WebApp1)'
         ResourceGroupName: '$(ResourceGroupName)'
@@ -128,10 +128,10 @@ stages:
         DeploymentType: 'runFromZip'
 
     - task: AzureRmWebAppDeployment@4
-      displayName: 'Publish to webapp'
+      displayName: 'Publish to webapp 2'
       inputs:
         ConnectionType: 'AzureRM'
-        azureSubscription: 'Azure Corp'
+        azureSubscription: 'Opensource Deployments'
         appType: 'webApp'
         WebAppName: '$(WebApp2)'
         ResourceGroupName: '$(ResourceGroupName)'
