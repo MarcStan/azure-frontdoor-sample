@@ -66,5 +66,4 @@ New-AzResourceGroupDeployment `
     -ResourceGroupName $ResourceGroupName `
     -TemplateFile $templateFile `
     -TemplateParameterObject $parameters `
-    -Mode Complete `
     -Force
