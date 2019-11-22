@@ -30,6 +30,7 @@ namespace Frontdoor
             }
 
             app.UseHttpsRedirection();
+            app.UseFileServer();
 
             app.UseRouting();
 
