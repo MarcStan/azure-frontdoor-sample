@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "appServicePlan1Name": {
@@ -45,37 +45,25 @@
                 "clientAffinityEnabled": false,
                 "httpsOnly": true,
                 "siteConfig": {
-                    "appSettings": [
-                        {
-                            "name": "WEBSITE_RUN_FROM_PACKAGE",
-                            "value": "1"
-                        }
-                    ]
+                    "netFrameworkVersion": "v4.6",
+                    "webSocketsEnabled": true,
+                    "alwaysOn": true,
+                    "use32BitWorkerProcess": true,
+                    "loadBalancing": "LeastRequests",
+                    "minTlsVersion": "1.2",
+                    "ftpsState": "Disabled"
                 }
             },
             "resources": [
                 {
                     "type": "config",
                     "apiVersion": "2016-08-01",
-                    "name": "web",
+                    "name": "appsettings",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/sites', parameters('webApp1'))]"
                     ],
                     "properties": {
-                        "netFrameworkVersion": "v4.0",
-                        "phpVersion": "",
-                        "pythonVersion": "",
-                        "nodeVersion": "",
-                        "linuxFxVersion": "",
-                        "webSocketsEnabled": true,
-                        "alwaysOn": true,
-                        "javaVersion": null,
-                        "javaContainer": null,
-                        "javaContainerVersion": null,
-                        "use32BitWorkerProcess": true,
-                        "loadBalancing": "LeastRequests",
-                        "minTlsVersion": "1.2",
-                        "ftpsState": "Disabled"
+                        "WEBSITE_RUN_FROM_PACKAGE": "1"
                     }
                 }
             ]
@@ -93,37 +81,25 @@
                 "clientAffinityEnabled": false,
                 "httpsOnly": true,
                 "siteConfig": {
-                    "appSettings": [
-                        {
-                            "name": "WEBSITE_RUN_FROM_PACKAGE",
-                            "value": "1"
-                        }
-                    ]
+                    "netFrameworkVersion": "v4.6",
+                    "webSocketsEnabled": true,
+                    "alwaysOn": true,
+                    "use32BitWorkerProcess": true,
+                    "loadBalancing": "LeastRequests",
+                    "minTlsVersion": "1.2",
+                    "ftpsState": "Disabled"
                 }
             },
             "resources": [
                 {
                     "type": "config",
                     "apiVersion": "2016-08-01",
-                    "name": "web",
+                    "name": "appsettings",
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/sites', parameters('webApp2'))]"
                     ],
                     "properties": {
-                        "netFrameworkVersion": "v4.0",
-                        "phpVersion": "",
-                        "pythonVersion": "",
-                        "nodeVersion": "",
-                        "linuxFxVersion": "",
-                        "webSocketsEnabled": true,
-                        "alwaysOn": true,
-                        "javaVersion": null,
-                        "javaContainer": null,
-                        "javaContainerVersion": null,
-                        "use32BitWorkerProcess": true,
-                        "loadBalancing": "LeastRequests",
-                        "minTlsVersion": "1.2",
-                        "ftpsState": "Disabled"
+                        "WEBSITE_RUN_FROM_PACKAGE": "1"
                     }
                 }
             ]
