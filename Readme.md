@@ -11,10 +11,10 @@ Contains:
 
 ## Prerequisites
 
-* Deploy two app services in different regions (ideally EU and US) (ensure deployed code is identical; yaml pipeline is already set up to do this)
+* Deploy two app services in different regions (ideally EU and US) (ensure deployed code is identical; ARM template can be used for this)
 * Create a frontdoor instance that uses both apps as backend endpoints
 
-Ensure setup is working: When navigating to `https://<app1>/` and `https://<app1>/` it should display the region names of each data center respectively (rest of documentation will use `West Europe` and `Central UL`).
+Ensure setup is working: When navigating to `https://<app1>/` and `https://<app1>/` it should display the region names of each data center respectively (rest of documentation will use `West Europe` and `Central US`).
 
 # Closest region test
 
